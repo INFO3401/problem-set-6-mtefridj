@@ -172,7 +172,7 @@ def runKNN(df, x, y, k):
     # Let's assume that we're using numeric features to predict a categorical label
     X = x.values
     Y = y.values.reshape(-1, 1)
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=1, stratify=Y)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=1)
     
     # Build a kNN classifier
     knn = KNeighborsClassifier(n_neighbors=k)
@@ -188,7 +188,8 @@ def runKNN(df, x, y, k):
     
 def runKMeans(df, k):
     # Prep the data by only choosing the numeric features in the data
-    X = df.select_dtypes(include="number")
+    list_values = list(df.columns[5:21])
+    X = df[list_values]
     
     # Run the k-Means algorithm
     kmeans = KMeans(n_clusters=k)
